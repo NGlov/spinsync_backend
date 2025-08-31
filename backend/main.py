@@ -11,18 +11,15 @@ load_dotenv()
 
 app = Flask(__name__)
 
-# Session configuration
 SESSION_COOKIE_NAME = "spotify_session"
 app.config['SESSION_COOKIE_SAMESITE'] = 'None'
-app.config['SESSION_COOKIE_SECURE'] = True  # must be True in HTTPS
+app.config['SESSION_COOKIE_SECURE'] = True  
 app.secret_key = os.environ.get("FLASK_SECRET_KEY", "dev_secret_key")
 app.config['SESSION_TYPE'] = 'filesystem'
 Session(app)
 
-# CORS for deployed frontend
 CORS(app, supports_credentials=True, origins=[os.environ.get("FRONTEND_URL")])
 
-# Spotify API config
 CLIENT_ID = os.environ.get("SPOTIFY_CLIENT_ID")
 CLIENT_SECRET = os.environ.get("SPOTIFY_CLIENT_SECRET")
 REDIRECT_URI = os.environ.get("REDIRECT_URI")
